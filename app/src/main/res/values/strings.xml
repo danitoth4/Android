@@ -15,12 +15,19 @@
     <string name="Diagram">Diagram</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
+    <string name="watch_profits">WATCH  PROFITS</string>
+    <string name="balance">Balance:</string>
     <string-array name="category_items">
         <item>Food</item>
         <item>Housing</item>
         <item>Bill</item>
-        <item>Electronic</item>
-        <item>Book</item>
+        <item>Entertainment</item>
+        <item>Saving</item>
+        <item>Health Care</item>
+        <item>Personal Care</item>
+        <item>Consumer Debt</item>
+        <item>Other</item>
+        <item>Wage</item>
     </string-array>
     <string-array name="frequency_array">
         <item>Once</item>

@@ -12,7 +12,7 @@ public class DataManager {
     private static List<Finance> financeList = new ArrayList<>();
 
     private static String[] Categories = new String[] {
-            "Food", "Electronic", "Book"
+            "Food", "Housing", "Bill", "Entertainment", "Saving", "Health Care", "Consumer Debt", "Personal Care", "Other", "Wage"
     };
 
     private static DataManager instance;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -32,6 +33,7 @@ public class DiagramActivity extends AppCompatActivity
     private DateTime endDate = DateTime.now().plusMonths(1);
     private EditText startDateEditText;
     private EditText endDateEditText;
+    private TextView balanceTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,14 @@ public class DiagramActivity extends AppCompatActivity
 
         categoryChart = findViewById(R.id.chartCategory);
         switchButton = findViewById(R.id.btnSwitch);
+        balanceTextView = findViewById(R.id.balanceTextView);
         switchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 profits = !profits;
                 loadData();
                 switchButton.setText(
-                        "WATCH" + ( profits ? "LOSS" : "PROFIT" )
+                        "WATCH " + ( profits ? "LOSS" : "PROFIT" )
                 );
             }
         });
@@ -99,6 +102,17 @@ public class DiagramActivity extends AppCompatActivity
         PieData data = new PieData(dataSet);
         categoryChart.setData(data);
         categoryChart.invalidate();
+        List<Finance> expenses = new ArrayList<>();
+        List<Finance> profits = new ArrayList<>();
+        for(Finance f : finances)
+        {
+            if(f.income)
+                profits.add(f);
+            else
+                expenses.add(f);
+        }
+        int allcost = DataManager.allCost(startDate, endDate, profits) - DataManager.allCost(startDate, endDate, expenses);
+        balanceTextView.setText("Balance: " + allcost);
     }
 
     @Override

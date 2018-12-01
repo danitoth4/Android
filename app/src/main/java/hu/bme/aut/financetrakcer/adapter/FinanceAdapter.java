@@ -49,7 +49,23 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
     int getIconImageResource(String category) {
         switch(category.toLowerCase()) {
             case "food" :
-                return R.drawable.groceries;
+                return R.drawable.food;
+            case "housing" :
+                return R.drawable.housing;
+            case "bill" :
+                return R.drawable.bill;
+            case "entertainment" :
+                return R.drawable.entertainment;
+            case "consumer debt" :
+                return R.drawable.debt;
+            case "personal care" :
+                return R.drawable.personalcare;
+            case "health care" :
+                return R.drawable.healthcare;
+            case "wage" :
+                return R.drawable.wage;
+            case "saving" :
+                return R.drawable.saving;
             default:
                 return R.drawable.category;
         }
