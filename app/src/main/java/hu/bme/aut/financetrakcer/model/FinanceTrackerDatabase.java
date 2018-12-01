@@ -7,10 +7,9 @@ import java.util.List;
 
 @Database(
         entities = {Finance.class, Category.class},
-        version = 1,
+        version = 3,
         exportSchema = false
 )
-@TypeConverters(value = {Finance.class})
 public abstract class FinanceTrackerDatabase extends RoomDatabase {
     public abstract FinanceDao FinanceDao();
 

@@ -10,7 +10,7 @@
     android:paddingTop="8dp">
 
     <ImageView
-        android:id="@+id/ShoppingItemIconImageView"
+        android:id="@+id/FinanceIconImageView"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginLeft="8dp"
@@ -26,33 +26,62 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/ShoppingItemNameTextView"
+            android:id="@+id/FinanceNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Apple" />
 
         <TextView
-            android:id="@+id/ShoppingItemDescriptionTextView"
+            android:id="@+id/FinanceDescriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="My favorite fruit" />
 
         <TextView
-            android:id="@+id/ShoppingItemCategoryTextView"
+            android:id="@+id/FinanceCategoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Food" />
 
         <TextView
-            android:id="@+id/ShoppingItemPriceTextView"
+            android:id="@+id/FinanceAmountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="20 Ft" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/firstDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2018.12.01"/>
+
+        <TextView
+            android:id="@+id/frequencyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="once" />
+
+        <ImageView
+            android:id="@+id/incomeImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="8dp"
+            android:padding="8dp"
+            tools:src="@drawable/open_book" />
+
+
+    </LinearLayout>
+
     <ImageButton
-        android:id="@+id/ShoppingItemRemoveButton"
+        android:id="@+id/FinanceRemoveButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="50dp"
         android:layout_height="50dp"

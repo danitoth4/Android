@@ -23,32 +23,23 @@ public class Finance {
     @ColumnInfo(name = "income")
     public boolean income;
 
-    @ColumnInfo(name = "dates")
-    public List<Date> dates;
+    @ColumnInfo(name = "frequency")
+    public String frequency;
+
+    @ColumnInfo(name = "year")
+    public int year;
+
+    @ColumnInfo(name = "month")
+    public int month;
+
+    @ColumnInfo(name = "day")
+    public int day;
 
     @ColumnInfo(name = "description")
     public String description;
 
-    @TypeConverter
-    public static String DateListToString(List<Date> dates)
-    {
-        Gson gson = new Gson();
-        return gson.toJson(dates);
-    }
-
-    @TypeConverter
-    public static List<Date> StringToDateList(String data)
-    {
-        Gson gson = new Gson();
-
-        if (data == null) {
-            return Collections.emptyList();
-        }
-
-        Type listType = new TypeToken<List<Date>>() {}.getType();
-
-        return gson.fromJson(data, listType);
-    }
+    @ColumnInfo(name = "category")
+    public String category;
 
 }
 

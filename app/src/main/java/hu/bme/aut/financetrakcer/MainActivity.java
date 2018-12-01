@@ -1,8 +1,10 @@
 package hu.bme.aut.financetrakcer;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import java.util.List;
 import hu.bme.aut.financetrakcer.adapter.FinanceAdapter;
 import hu.bme.aut.financetrakcer.fragments.NewFinanceItemDialogFragment;
 import hu.bme.aut.financetrakcer.model.Category;
+import hu.bme.aut.financetrakcer.model.DataManager;
 import hu.bme.aut.financetrakcer.model.Finance;
 import hu.bme.aut.financetrakcer.model.FinanceTrackerDatabase;
 
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
                 getApplicationContext(),
                 FinanceTrackerDatabase.class,
                 "finance-list"
-        ).build();
+        ).fallbackToDestructiveMigration().build();
 
         initRecyclerView();
     }
@@ -69,8 +72,9 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.diagram_action) {
+            Intent launchNewIntent = new Intent(MainActivity.this,DiagramActivity.class);
+            startActivityForResult(launchNewIntent, 0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
     }
 
     private void loadItemsInBackground() {
+        try{
         new  AsyncTask<Void, Void, List<Finance>>() {
 
             @Override
@@ -95,9 +100,15 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
 
             @Override
             protected void onPostExecute(List<Finance> finances) {
+                DataManager.getInstance().addItems(finances);
                 adapter.update(finances);
             }
-        }.execute();
+        }.execute(); }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -129,7 +140,26 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
 
             @Override
             protected void onPostExecute(Finance finance) {
+                DataManager.getInstance().addItem(finance);
                 adapter.addItem(finance);
+            }
+        }.execute();
+    }
+
+    @Override
+    public void onItemRemoved(final Finance item) {
+        new AsyncTask<Void, Void, Finance>() {
+
+            @Override
+            protected Finance doInBackground(Void... voids) {
+                database.FinanceDao().deleteItem(item);
+                return item;
+            }
+
+            @Override
+            protected void onPostExecute(Finance item) {
+                DataManager.removeItem(item);
+                adapter.deleteItem(item);
             }
         }.execute();
     }
