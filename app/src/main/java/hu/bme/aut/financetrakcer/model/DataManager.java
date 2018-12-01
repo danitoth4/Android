@@ -52,29 +52,38 @@ public class DataManager {
 
     public static int allCost(DateTime startDate, DateTime endDate, List<Finance> finances)
     {
+        if(endDate.compareTo(startDate) < 0)
+            return 0;
+
         int sum = 0;
         for(Finance f : finances)
         {
             DateTime financeDate = new DateTime(f.year, f.month, f.day, 0, 0);
-            if(financeDate.compareTo(startDate) < 0)
-                financeDate = startDate;
+
             if(financeDate.compareTo(endDate) > 0)
                 continue;
 
-            int occasions;
+            int occasions = 0;
+
+            if(financeDate.compareTo(startDate) >= 0)
+            {
+                occasions++;
+                startDate = financeDate;
+            }
+
+
             switch(f.frequency.toLowerCase())
             {
                 case "monthly" :
-                    occasions = Months.monthsBetween(financeDate, endDate).getMonths();
+                    occasions += Months.monthsBetween(startDate, endDate).getMonths();
                     break;
                 case "weekly" :
-                    occasions = Weeks.weeksBetween(financeDate, endDate).getWeeks();
+                    occasions += Weeks.weeksBetween(startDate, endDate).getWeeks();
                     break;
                 case "daily" :
-                    occasions = Days.daysBetween(financeDate, endDate).getDays();
+                    occasions += Days.daysBetween(startDate, endDate).getDays();
                     break;
                 default:
-                    occasions = 1;
                     break;
             }
 

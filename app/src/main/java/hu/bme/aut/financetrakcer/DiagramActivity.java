@@ -86,7 +86,11 @@ public class DiagramActivity extends AppCompatActivity
                     params.add(f);
             }
             if(params.size() > 0)
-            entries.add(new PieEntry(DataManager.allCost(startDate, endDate, params), s));
+            {
+                int value = DataManager.allCost(startDate, endDate, params);
+                if(value > 0)
+                entries.add(new PieEntry(value, s));
+            }
             params.clear();
         }
         PieDataSet dataSet = new PieDataSet(entries, getString(R.string.Categories));
@@ -107,7 +111,7 @@ public class DiagramActivity extends AppCompatActivity
         else {
             endDate = datetime;
             endDateEditText.setText(endDate.getYear() + "." + endDate.getMonthOfYear() + "." + endDate.getDayOfMonth() + ".");
-
         }
+        loadData();
     }
 }

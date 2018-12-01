@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +20,14 @@ import android.view.MenuItem;
 import java.util.List;
 
 import hu.bme.aut.financetrakcer.adapter.FinanceAdapter;
+import hu.bme.aut.financetrakcer.fragments.DatePickerDialogFragment;
 import hu.bme.aut.financetrakcer.fragments.NewFinanceItemDialogFragment;
 import hu.bme.aut.financetrakcer.model.Category;
 import hu.bme.aut.financetrakcer.model.DataManager;
 import hu.bme.aut.financetrakcer.model.Finance;
 import hu.bme.aut.financetrakcer.model.FinanceTrackerDatabase;
 
-public class MainActivity extends AppCompatActivity implements FinanceAdapter.FinanceItemClickListener,  NewFinanceItemDialogFragment.NewFinanceItemDialogListener {
+public class MainActivity extends AppCompatActivity implements FinanceAdapter.FinanceItemClickListener,  NewFinanceItemDialogFragment.NewFinanceItemDialogListener, DatePickerDialogFragment.OnDateSelectedListener {
 
 
     private RecyclerView recyclerView;
@@ -162,6 +164,12 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
                 adapter.deleteItem(item);
             }
         }.execute();
+    }
+
+    @Override
+    public void onDateSelected(int year, int month, int day, boolean start) {
+       NewFinanceItemDialogFragment newFinanceFrag = (NewFinanceItemDialogFragment) getSupportFragmentManager().findFragmentByTag("NewFinanceItemDialogFragment");
+       newFinanceFrag.onDateSelected(year, month, day, start);
     }
 }
 

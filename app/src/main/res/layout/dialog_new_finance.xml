@@ -51,7 +51,7 @@
         android:orientation="horizontal"
         android:weightSum="3">
 
-    <EditText
+        <EditText
         android:id="@+id/FinanceAmountEditText"
         android:layout_width="104dp"
         android:layout_height="wrap_content"
@@ -65,43 +65,14 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/firstDateTextView"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="@string/firstDate"/>
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <EditText
-            android:id="@+id/FinanceYearEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="Year"
-            android:layout_weight="1"/>
-
-        <EditText
-            android:id="@+id/FinanceMonthEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="Month"
-            android:layout_weight="1" />
-
-        <EditText
-            android:id="@+id/FinanceDayEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="Day"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/start_date"
+        android:inputType="date"/>
 
     <TextView
         android:layout_width="wrap_content"

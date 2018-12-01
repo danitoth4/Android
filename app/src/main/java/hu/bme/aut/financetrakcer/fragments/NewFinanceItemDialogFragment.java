@@ -17,6 +17,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +30,7 @@ import java.util.Locale;
 import hu.bme.aut.financetrakcer.R;
 import hu.bme.aut.financetrakcer.model.Finance;
 
-public class NewFinanceItemDialogFragment extends DialogFragment {
+public class NewFinanceItemDialogFragment extends DialogFragment implements DatePickerDialogFragment.OnDateSelectedListener {
     public static final String TAG = "NewFinanceItemDialogFragment";
 
 
@@ -37,10 +39,15 @@ public class NewFinanceItemDialogFragment extends DialogFragment {
     private EditText amountEditText;
     private Spinner categorySpinner;
     private  Spinner frequencySpinner;
-    private EditText yearEditText;
-    private EditText monthEditText;
-    private EditText dayEditText;
+    private EditText firstDateEditText;
     private CheckBox isIncomeCheckBox;
+    private DateTime firstDate = DateTime.now();
+
+    @Override
+    public void onDateSelected(int year, int month, int day, boolean start) {
+        firstDate = new DateTime(year, month + 1, day, 0, 0);
+        firstDateEditText.setText(firstDate.getYear() + "." + firstDate.getMonthOfYear() + "." + firstDate.getDayOfMonth() + ".");
+    }
 
 
     public interface NewFinanceItemDialogListener {
@@ -92,21 +99,9 @@ public class NewFinanceItemDialogFragment extends DialogFragment {
         } catch (NumberFormatException e) {
             finance.amount = 0;
         }
-        try {
-            finance.year = Integer.parseInt(yearEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            finance.year = Calendar.getInstance().get(Calendar.YEAR);
-        }
-        try {
-            finance.month = Integer.parseInt(monthEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            finance.month = Calendar.getInstance().get(Calendar.MONTH);
-        }
-        try {
-            finance.day = Integer.parseInt(dayEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            finance.day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        }
+        finance.year = firstDate.getYear();
+        finance.month = firstDate.getMonthOfYear();
+        finance.day = firstDate.getDayOfMonth();
         finance.income = isIncomeCheckBox.isChecked();
         finance.category = categorySpinner.getSelectedItem().toString();
 
@@ -126,9 +121,14 @@ public class NewFinanceItemDialogFragment extends DialogFragment {
         frequencySpinner.setAdapter((new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.frequency_array))));
-        yearEditText = contentView.findViewById(R.id.FinanceYearEditText);
-        monthEditText = contentView.findViewById(R.id.FinanceMonthEditText);
-        dayEditText = contentView.findViewById(R.id.FinanceDayEditText);
+       firstDateEditText = contentView.findViewById(R.id.firstDateTextView);
+       firstDateEditText.setText(firstDate.getYear() + "." + firstDate.getMonthOfYear() + "." + firstDate.getDayOfMonth() + ".");
+       firstDateEditText.setOnClickListener(new View.OnClickListener() {
+           @Override
+               public void onClick(View v) {
+               new DatePickerDialogFragment().show(getFragmentManager(), "START");
+           }
+       });
         isIncomeCheckBox = contentView.findViewById(R.id.isIncomeCheckbox);
 
 
