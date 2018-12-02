@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.*;
 import hu.bme.aut.financetrakcer.R;
+import hu.bme.aut.financetrakcer.model.DataManager;
 import hu.bme.aut.financetrakcer.model.Finance;
 
 public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder> {
@@ -101,6 +102,23 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
         notifyDataSetChanged();
     }
 
+    public void filter(String text) {
+        ArrayList<Finance> itemsCopy = new ArrayList<>(DataManager.getInstance().getItems());
+        items.clear();
+        if(text.isEmpty()){
+            items.addAll(itemsCopy);
+        } else{
+            text = text.toLowerCase();
+            for(Finance item: itemsCopy){
+                if(item.category.toLowerCase().startsWith(text)){
+                    items.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
     public interface FinanceItemClickListener{
         void onItemChanged(Finance item);
 
@@ -137,7 +155,6 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
                 public void onClick(View v) {
                     if(item!=null){
                         listener.onItemRemoved(item);
-                        notifyItemRemoved(getAdapterPosition());
                 }
             }});
         }

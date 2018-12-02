@@ -17,6 +17,10 @@
     <string name="end_date">End Date</string>
     <string name="watch_profits">WATCH  PROFITS</string>
     <string name="balance">Balance:</string>
+    <string name="search_for_categories">Search for categories</string>
+    <string name="search">Search</string>
+    <string name="watch_spending">WATCH SPENDING</string>
+    <string name="watch_earning">WATCH EARNING</string>
     <string-array name="category_items">
         <item>Food</item>
         <item>Housing</item>

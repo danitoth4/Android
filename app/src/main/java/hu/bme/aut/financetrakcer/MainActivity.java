@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.SearchView;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
 
     private RecyclerView recyclerView;
     private FinanceAdapter adapter;
+    private SearchView searchView;
 
     private FinanceTrackerDatabase database;
 
@@ -63,6 +65,20 @@ public class MainActivity extends AppCompatActivity implements FinanceAdapter.Fi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+               adapter.filter(query);
+               return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.filter(s);
+                return true;
+            }
+        });
         return true;
     }
 

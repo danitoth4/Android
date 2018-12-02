@@ -29,8 +29,8 @@ public class DiagramActivity extends AppCompatActivity
     private PieChart categoryChart;
     private Button switchButton;
     private boolean profits = false;
-    private DateTime startDate = DateTime.now();
-    private DateTime endDate = DateTime.now().plusMonths(1);
+    private DateTime startDate = DateTime.now().minusDays(1);
+    private DateTime endDate = startDate.plusMonths(1);
     private EditText startDateEditText;
     private EditText endDateEditText;
     private TextView balanceTextView;
@@ -49,7 +49,7 @@ public class DiagramActivity extends AppCompatActivity
                 profits = !profits;
                 loadData();
                 switchButton.setText(
-                        "WATCH " + ( profits ? "LOSS" : "PROFIT" )
+                        profits ? getString(R.string.watch_spending) : getString(R.string.watch_earning)
                 );
             }
         });

@@ -15,7 +15,7 @@
         android:layout_height="64dp"
         android:layout_marginLeft="8dp"
         android:padding="8dp"
-        tools:src="@drawable/open_book"
+        tools:src="@drawable/food"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
