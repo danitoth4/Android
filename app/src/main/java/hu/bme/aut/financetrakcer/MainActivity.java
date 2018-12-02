@@ -23,7 +23,6 @@ import java.util.List;
 import hu.bme.aut.financetrakcer.adapter.FinanceAdapter;
 import hu.bme.aut.financetrakcer.fragments.DatePickerDialogFragment;
 import hu.bme.aut.financetrakcer.fragments.NewFinanceItemDialogFragment;
-import hu.bme.aut.financetrakcer.model.Category;
 import hu.bme.aut.financetrakcer.model.DataManager;
 import hu.bme.aut.financetrakcer.model.Finance;
 import hu.bme.aut.financetrakcer.model.FinanceTrackerDatabase;
